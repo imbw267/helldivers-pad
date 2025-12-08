@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helldivers Stratagem Input</title>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@font-face {
+  font-family: 'FS Sinclair Medium';
+  src: url('fonts/FS Sinclair Medium.otf') format('truetype');
+}
+body {
+  font-family: 'FS Sinclair Medium', sans-serif;
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+function StratagemInput() {
+const [sequence, setSequence] = useState([]);
+const [result, setResult] = useState(null);
+const [showStratagem, setShowStratagem] = useState(false);
+const [showHints, setShowHints] = useState(false);
+
+const STRATAGEMS = {
+'up-down-right-left-up': { name: 'Reinforce', icon: 'images/Reinforce.png', sound: 'sounds/confirm.mp3' },
+'down-down-up-right': { name: 'Resupply', icon: 'images/Resupply.png', sound: 'sounds/confirm.mp3' },
+'up-down-right-up': { name: 'SOS Beacon', icon: 'images/SOS Beacon.png', sound: 'sounds/confirm.mp3' },
+'down-up-left-down-up-right-down-up': { name: 'NUX-223 Hellbomb', icon: 'images/Hellbomb.png', sound: 'sounds/confirm.mp3' },
+'up-up-left-right-down-down': { name: 'Seismic Probe', icon: 'images/Seismic Probe.png', sound: 'sounds/confirm.mp3' },
+'right-up-up-down': { name: 'SEAF Artillery', icon: 'images/SEAF Artillery.png', sound: 'sounds/confirm.mp3' },
+'down-up-down-up': { name: 'Super Earth Flag', icon: 'images/Super Earth Flag.png', sound: 'sounds/confirm.mp3' },
+'left-up-down-right-down-down': { name: 'Hive Breaker Drill', icon: 'images/Hive Breaker Drill.png', sound: 'sounds/confirm.mp3' },
+'right-down-down-up': { name: 'Machine Gun', icon: 'images/Machine Gun.png', sound: 'sounds/confirm.mp3' },
+'up-right-down-right': { name: 'Eagle Airstrike', icon: 'images/Eagle Airstrike.png', sound: 'sounds/confirm.mp3' },
+'up-right-down-down-down': { name: 'Eagle 500KG Bomb', icon: 'images/Eagle 500KG Bomb.png', sound: 'sounds/confirm.mp3' },
+'up-right-up-up-right': { name: 'Shield Generator', icon: '🛡️', sound: null },
+'left-down-down-right': { name: 'Turret', icon: '🎯', sound: null },
+'up-up-down-down': { name: 'Jump Pack', icon: '🎒', sound: null },
+'right-right-down-up': { name: 'Railgun', icon: '⚡', sound: null },
+'down-up-up-down': { name: 'Hellbomb', icon: '💣', sound: null }
+};
+
+const ArrowIcon = ({ direction }) => {
+const arrowImages = {
+up: "images/Stratagem_Arrow_UP.png",
+down: "images/Stratagem_Arrow_Down.png",
+left: "images/Stratagem_Arrow_Left.png",
+right: "images/Stratagem_Arrow_Right.png"
+};
+return React.createElement('img', {
+src: arrowImages[direction],
+alt: direction,
+className: "w-16 h-16 lg:w-20 lg:h-20 object-contain"
+});
+};
+
+const handleInput = (direction) => {
+if (showStratagem) return;
+
+const tapSound = new Audio('sounds/tap.mp3');
+tapSound.play().catch(err => console.log('Tap sound error'));
+
+const newSequence = [...sequence, direction];
+setSequence(newSequence);
+const key = newSequence.join('-');
+if (STRATAGEMS[key]) {
+setResult(STRATAGEMS[key]);
+setShowStratagem(true);
+if (STRATAGEMS[key].sound) {
+const audio = new Audio(STRATAGEMS[key].sound);
+audio.play().catch(err => console.log('Audio error'));
+}
+setTimeout(() => {
+setSequence([]);
+setShowStratagem(false);
+setResult(null);
+}, 3000);
+} else if (newSequence.length >= 6) {
+setSequence([]);
+}
+};
+
+const renderIcon = (icon, name, size) => {
+if (icon.includes('.') || icon.includes('/')) {
+let sizeClass = 'w-full h-full';
+if (size === 'hint') sizeClass = 'w-12 h-12';
+if (size === 'large') sizeClass = 'w-64 h-64';
+return React.createElement('img', { src: icon, alt: name, className: sizeClass + ' object-contain' });
+}
+return icon;
+};
+
+return React.createElement('div', { className: "min-h-screen bg-black flex items-center justify-center p-4 lg:p-8" },
+React.createElement('div', { className: "w-full max-w-4xl h-full flex items-center justify-center relative" },
+React.createElement('button', {
+onClick: () => setShowHints(!showHints),
+className: "absolute top-4 right-4 opacity-10 hover:opacity-30 transition-opacity z-50 w-10 h-10 rounded-full border-2 border-white text-white text-2xl"
+}, '?'),
+showHints && React.createElement('div', { className: "absolute inset-0 bg-black bg-opacity-95 z-40 flex items-center justify-center p-8" },
+React.createElement('div', { className: "max-w-2xl" },
+React.createElement('h3', { className: "text-yellow-400 font-bold text-2xl mb-6" }, 'STRATAGEMS'),
+React.createElement('div', { className: "grid grid-cols-2 gap-4 text-sm" },
+Object.entries(STRATAGEMS).map(([code, strat]) =>
+React.createElement('div', { key: code, className: "flex items-center gap-3 text-slate-300" },
+React.createElement('div', { className: "text-3xl w-12 h-12 flex items-center justify-center" },
+renderIcon(strat.icon, strat.name, 'hint')),
+React.createElement('div', null,
+React.createElement('div', { className: "font-semibold" }, strat.name),
+React.createElement('div', { className: "text-slate-500 text-xs" },
+code.split('-').map(d => d[0].toUpperCase()).join(' → ')))))),
+React.createElement('button', {
+onClick: () => setShowHints(false),
+className: "mt-8 text-yellow-400 hover:text-yellow-300"
+}, 'Close'))),
+showStratagem && result ? React.createElement('div', { className: "flex flex-col items-center justify-center animate-pulse" },
+React.createElement('div', { className: "text-9xl mb-6 w-64 h-64 flex items-center justify-center" },
+renderIcon(result.icon, result.name, 'large')),
+React.createElement('div', { className: "text-5xl font-bold text-yellow-400 tracking-wider" }, result.name),
+React.createElement('div', { className: "text-xl text-green-400 mt-4" }, 'STRATAGEM READY')) :
+React.createElement('div', { className: "w-full flex flex-col items-center justify-center" },
+React.createElement('div', { className: "mb-12 h-20 flex items-center gap-3" },
+sequence.map((dir, idx) =>
+React.createElement('div', {
+key: idx,
+className: "bg-slate-800 text-yellow-400 p-3 rounded-lg border-2 border-yellow-500 animate-pulse"
+}, React.createElement(ArrowIcon, { direction: dir })))),
+React.createElement('div', { className: "grid grid-cols-3 gap-4 lg:gap-6" },
+React.createElement('div'),
+React.createElement('button', {
+onClick: () => handleInput('up'),
+className: "bg-slate-800 hover:bg-slate-700 active:bg-yellow-600 text-white p-8 lg:p-12 rounded-lg flex items-center justify-center transition-all border-2 border-slate-600 hover:border-yellow-500"
+}, React.createElement(ArrowIcon, { direction: 'up' })),
+React.createElement('div'),
+React.createElement('button', {
+onClick: () => handleInput('left'),
+className: "bg-slate-800 hover:bg-slate-700 active:bg-yellow-600 text-white p-8 lg:p-12 rounded-lg flex items-center justify-center transition-all border-2 border-slate-600 hover:border-yellow-500"
+}, React.createElement(ArrowIcon, { direction: 'left' })),
+React.createElement('button', {
+onClick: () => handleInput('down'),
+className: "bg-slate-800 hover:bg-slate-700 active:bg-yellow-600 text-white p-8 lg:p-12 rounded-lg flex items-center justify-center transition-all border-2 border-slate-600 hover:border-yellow-500"
+}, React.createElement(ArrowIcon, { direction: 'down' })),
+React.createElement('button', {
+onClick: () => handleInput('right'),
+className: "bg-slate-800 hover:bg-slate-700 active:bg-yellow-600 text-white p-8 lg:p-12 rounded-lg flex items-center justify-center transition-all border-2 border-slate-600 hover:border-yellow-500"
+}, React.createElement(ArrowIcon, { direction: 'right' }))))));
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(StratagemInput));
+</script>
+</body>
+</html>
