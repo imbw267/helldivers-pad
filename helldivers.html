@@ -22,6 +22,7 @@ body {
 <div id="root"></div>
 <script type="text/babel">
 const { useState } = React;
+import {STRATAGEMS_SEQUENCE} from './STRATAGEMS_SEQUENCE.js';
 
 function StratagemInput() {
 const [sequence, setSequence] = useState([]);
@@ -45,7 +46,7 @@ const [showHints, setShowHints] = useState(false);
 'down-right-down-up-left-right': { name: 'Railgun', icon: 'images/Railgun.svg', sound: 'sounds/confirm.mp3' },
 };
 */
-import {STRATAGEMS_SEQUENCE} from './STRATAGEMS_SEQUENCE.js';
+
 const STRATAGEMS=STRATAGEMS_SEQUENCE;
 
 const ArrowIcon = ({ direction }) => {
