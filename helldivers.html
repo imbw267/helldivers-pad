@@ -127,7 +127,7 @@ const STRATAGEMS= {
 'down-up-right-down-up-right':{name: 'A/LAS-98 Laser Sentry',icon: 'images/Control Group/Laser Sentry.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 };
 
-//const STRATAGEMS=STRATAGEMS_SEQUENCE;
+const VALID_STRATAGEMS=Object.keys(STRATAGEMS);
 
 const arrowText = {
 'up':'🡅',
@@ -174,6 +174,13 @@ setResult(null);
 } else if (newSequence.length >= 9) {
 setSequence([]);
 }
+else {
+const hasMatch = VALID_STRATAGEMS.some(item => item.startsWith(key));
+hasMatch ? console.log('Sequence Found ', key) : console.log('No Sequence Found',key);
+if(!hasMatch){
+setSequence([]);
+}
+}
 };
 
 const renderIcon = (icon, name, size) => {
@@ -190,9 +197,9 @@ return React.createElement('div', { className: "min-h-screen bg-black flex items
 React.createElement('div', { className: "w-full max-w-4xl h-full flex items-center justify-center relative" },
 React.createElement('button', {
 onClick: () => setShowHints(!showHints),
-className: "absolute top-4 right-4 opacity-10 hover:opacity-30 transition-opacity z-50 w-10 h-10 rounded-full border-2 border-white text-white text-2xl"
-}, '?'),
-showHints && React.createElement('div', { className: "absolute inset-0 bg-black bg-opacity-95 z-40 flex items-center justify-center p-8" },
+className: "absolute top-4 right-4 opacity-30 hover:opacity-90 transition-opacity z-50 w-20 h-20 rounded-full border-2 border-white text-white text-5xl flex items-center justify-center leading-none pt-1"
+}, ( showHints ? '✖' : '?')),
+showHints && React.createElement('div', { className: "absolute inset-0 bg-black bg-opacity-95 z-40 flex items-center justify-center p-8" },  // hint entry
 React.createElement('div', { className: "max-w-2xl" },
 React.createElement('h3', { className: "text-yellow-400 font-bold text-2xl mb-6" }, 'STRATAGEMS'),
 React.createElement('div', { className: "grid grid-cols-2 gap-4 text-sm" },
@@ -202,19 +209,19 @@ React.createElement('div', { className: "text-3xl w-12 h-12 flex items-center ju
 renderIcon(strat.icon, strat.name, 'hint')),
 React.createElement('div', null,
 React.createElement('div', { className: "font-semibold" }, strat.name),
-React.createElement('div', { className: "text-slate-400 text-s" },
+React.createElement('div', { className: "text-slate-400 text-m" },
 code.split('-').map(d => arrowText[d]).join(' ')))))),
 React.createElement('button', {
 onClick: () => setShowHints(false),
 className: "mt-8 text-yellow-400 hover:text-yellow-300"
 }, 'Close'))),
-showStratagem && result ? React.createElement('div', { className: "flex flex-col items-center justify-center animate-pulse" },
+showStratagem && result ? React.createElement('div', { className: "flex flex-col items-center justify-center animate-pulse" }, //Stratagem ready
 React.createElement('div', { className: "text-9xl mb-6 w-64 h-64 flex items-center justify-center" },
 renderIcon(result.icon, result.name, 'large')),
 React.createElement('div', { className: "text-5xl font-bold text-yellow-400 tracking-wider" }, result.name),
 React.createElement('div', { className: "text-xl text-green-400 mt-4" }, 'STRATAGEM READY')) :
 React.createElement('div', { className: "w-full flex flex-col items-center justify-center" },
-React.createElement('div', { className: "mb-12 h-20 flex items-center gap-3" },
+React.createElement('div', { className: "mb-12 h-20 flex items-center gap-3" }, // keypad
 sequence.map((dir, idx) =>
 React.createElement('div', {
 key: idx,
