@@ -129,6 +129,13 @@ const STRATAGEMS= {
 
 //const STRATAGEMS=STRATAGEMS_SEQUENCE;
 
+const arrowText = {
+'up':'🡅',
+'right':'🡆',
+'down':'🡇',
+'left':'🡄',
+};
+
 const ArrowIcon = ({ direction }) => {
 const arrowImages = {
 up: "images/Stratagem_Arrow_Up.png",
@@ -195,8 +202,8 @@ React.createElement('div', { className: "text-3xl w-12 h-12 flex items-center ju
 renderIcon(strat.icon, strat.name, 'hint')),
 React.createElement('div', null,
 React.createElement('div', { className: "font-semibold" }, strat.name),
-React.createElement('div', { className: "text-slate-500 text-xs" },
-code.split('-').map(d => d[0].toUpperCase()).join(' → ')))))),
+React.createElement('div', { className: "text-slate-400 text-s" },
+code.split('-').map(d => arrowText[d]).join(' ')))))),
 React.createElement('button', {
 onClick: () => setShowHints(false),
 className: "mt-8 text-yellow-400 hover:text-yellow-300"
