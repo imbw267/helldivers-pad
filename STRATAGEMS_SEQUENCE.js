@@ -1,4 +1,4 @@
-const STRATAGEMS_SEQUENCE = {
+export const STRATAGEMS_SEQUENCE = {
 'up-down-right-left-up':    { name: 'Reinforce', icon: 'images/General Stratagems/Reinforce.svg', sound: 'sounds/confirm.mp3' , activate='sounds/reinforce.mp3'},
 'down-down-up-right':       { name: 'Resupply', icon: 'images/General Stratagems/Resupply.svg', sound: 'sounds/confirm.mp3', activate='sounds/'},
 'up-down-right-up':         { name: 'SOS Beacon', icon: 'images/General Stratagems/SOS Beacon.svg', sound: 'sounds/confirm.mp3' , activate='sounds/'},
@@ -94,9 +94,14 @@ const STRATAGEMS_SEQUENCE = {
 'down-up-right-down-up-up':{name: 'A/FLAM-40 Flame Sentry',icon: 'images/Urban Legends/Flame Sentry.svg', sound: 'sounds/confirm.mp3', activate='sounds/'},
 'down-up-right-down-up-right':{name: 'A/LAS-98 Laser Sentry',icon: 'images/Control Group/Laser Sentry.svg', sound: 'sounds/confirm.mp3', activate='sounds/'},
 };
-const MISC_SEQUENCE = {
+export const MISC_SEQUENCE = {
 'error': {name: 'Invalid', icon: 'images/Invalid.svg', sound:'sounds/error.mp3', activate='sounds/'},
 'default': {name: 'Invalid', icon: 'images/Invalid.svg', sound:'sounds/confirm.mp3', activate='sounds/default_activate.mp3'},
 };
+
+export default {
+  STRATAGEMS_SEQUENCE,
+  MISC_SEQUENCE,
+}
 
 // template '':{name: '',icon: 'images/', sound: 'sounds/confirm.mp3', activate='sounds/'},

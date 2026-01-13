@@ -29,7 +29,7 @@ const [result, setResult] = useState(null);
 const [showStratagem, setShowStratagem] = useState(false);
 const [showHints, setShowHints] = useState(false);
 
-const STRATAGEMS = {
+/*const STRATAGEMS = {
 'up-down-right-left-up': { name: 'Reinforce', icon: 'images/Reinforce.png', sound: 'sounds/confirm.mp3' },
 'down-down-up-right': { name: 'Resupply', icon: 'images/Resupply.png', sound: 'sounds/confirm.mp3' },
 'up-down-right-up': { name: 'SOS Beacon', icon: 'images/SOS Beacon.png', sound: 'sounds/confirm.mp3' },
@@ -44,6 +44,9 @@ const STRATAGEMS = {
 'down-up-up-down-up': { name: 'Jump Pack', icon: 'images/Jump Pack.svg', sound: 'sounds/confirm.mp3' },
 'down-right-down-up-left-right': { name: 'Railgun', icon: 'images/Railgun.svg', sound: 'sounds/confirm.mp3' },
 };
+*/
+import {STRATAGEMS_SEQUENCE} from './STRATAGEMS_SEQUENCE.js';
+const STRATAGEMS=STRATAGEMS_SEQUENCE;
 
 const ArrowIcon = ({ direction }) => {
 const arrowImages = {
