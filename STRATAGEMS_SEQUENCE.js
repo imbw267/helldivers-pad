@@ -1,4 +1,4 @@
-export const STRATAGEMS_SEQUENCE = {
+export const STRATAGEMS= {
 'up-down-right-left-up':    { name: 'Reinforce', icon: 'images/General Stratagems/Reinforce.svg', sound: 'sounds/confirm.mp3' , activate='sounds/reinforce.mp3'},
 'down-down-up-right':       { name: 'Resupply', icon: 'images/General Stratagems/Resupply.svg', sound: 'sounds/confirm.mp3', activate='sounds/'},
 'up-down-right-up':         { name: 'SOS Beacon', icon: 'images/General Stratagems/SOS Beacon.svg', sound: 'sounds/confirm.mp3' , activate='sounds/'},
