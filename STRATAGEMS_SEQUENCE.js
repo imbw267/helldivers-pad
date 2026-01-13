@@ -99,7 +99,7 @@ export const MISC_SEQUENCE = {
 'default': {name: 'Invalid', icon: 'images/Invalid.svg', sound:'sounds/confirm.mp3', activate='sounds/default_activate.mp3'},
 };
 
-export default {
+export {
   STRATAGEMS_SEQUENCE,
   MISC_SEQUENCE,
 }
