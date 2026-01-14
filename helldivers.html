@@ -176,14 +176,14 @@ setSequence([]);
 setShowStratagem(false);
 setResult(null);
 }, 3000);
-} else if (newSequence.length >= 9) {
-setSequence([]);
-}
+} 
 else {
 const hasMatch = VALID_STRATAGEMS.some(item => item.startsWith(key));
 hasMatch ? console.log('Sequence Found ', key) : console.log('No Sequence Found',key);
-if(!hasMatch){
+if(!hasMatch || newSequence.length >= 9){
 setSequence([]);
+const errorSound = new Audio('sounds/error.mp3');
+errorSound.play().catch(err => console.log('Error sound error'));
 }
 }
 };
