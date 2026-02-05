@@ -79,6 +79,9 @@ const STRATAGEMS= {
 'down-up-right-down-down':{name: 'MS-11 Solo Silo',icon: 'images/Dust Devils/Solo Silo.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'down-left-right-down-up-up':{name: 'M-1000 Maxigun',icon: 'images/Python Commandos/Maxigun.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'down-left-right-right-down':{name: 'CQC-9 Defoliation Tool',icon: 'images/Python Commandos/Defoliation Tool.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
+'down-left-right-left-up':{name: 'CQC-20 Breaching Hammer',icon: 'images/Siege Breakers/CQC-20.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
+'down-down-left-up-down':{name: 'EAT-411 Leveller',icon: 'images/Siege Breakers/EAT-411.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
+'down-left-up-left-up-up':{name: 'GL-28 Belt-Fed Grenade Launcher',icon: 'images/Siege Breakers/GL-28.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'down-up-up-down-up': { name: 'LIFT-850 Jump Pack', icon: 'images/Hangar/Jump Pack.svg', sound: 'sounds/confirm.mp3' , activate:'sounds/'},
 'down-left-down-up-up-down':{name: 'B-1 Supply Pack',icon: 'images/Engineering Bay/Supply Pack.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'down-up-left-up-right-right':{name: 'AX/LAS-5 \"Guard Dog\" Rover',icon: 'images/Engineering Bay/Guard Dog Rover.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
@@ -96,6 +99,7 @@ const STRATAGEMS= {
 'left-down-right-down-right-down-up':{name: 'M-102 Fast Recon Vehicle',icon: 'images/Hangar/Fast Recon Vehicle.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'left-down-right-up-left-down-down':{name: 'EXO-45 Patriot Exosuit',icon: 'images/Robotics Workshop/Patriot Exosuit.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'left-down-right-up-left-down-up':{name: 'EXO-49 Emancipator Exosuit',icon: 'images/Robotics Workshop/Emancipator Exosuit.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
+'left-down-right-down-left-down-up-down-up':{name: 'TD-220 Bastion MK XVI',icon: 'images/Siege Breakers/Bastion MK XVI.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'right-right-up':{name: 'Orbital Precision Strike',icon: 'images/Bridge/Orbital Precision Strike.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'right-right-down-right':{name: 'Orbital Gas Strike',icon: 'images/Bridge/Orbital Gas Strike.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
 'right-right-left-down':{name: 'Orbital EMS Strike',icon: 'images/Bridge/Orbital EMS Strike.svg', sound: 'sounds/confirm.mp3', activate:'sounds/'},
@@ -182,7 +186,7 @@ setResult(null);
 else {
 const hasMatch = VALID_STRATAGEMS.some(item => item.startsWith(key));
 hasMatch ? console.log('Sequence Found ', key) : console.log('No Sequence Found',key);
-if(!hasMatch || newSequence.length >= 9){
+if(!hasMatch || newSequence.length > 9){  // Bastion has 9 entries
 setSequence([]);
 const errorSound = new Audio('sounds/error.mp3');
 errorSound.play().catch(err => console.log('Error sound error'));
