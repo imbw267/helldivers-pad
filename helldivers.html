@@ -229,20 +229,46 @@ showHints && React.createElement('div', { className: "absolute inset-0 bg-black 
         [&::-webkit-scrollbar-thumb]:border-[4px]
         [&::-webkit-scrollbar-thumb]:border-slate-900
       ` 
-    }, 
-      React.createElement('div', { className: "grid grid-cols-2 gap-4 text-sm" },
-        Object.entries(STRATAGEMS).map(([code, strat]) =>
-          React.createElement('div', { key: code, className: "flex items-center gap-3 text-slate-300" },
-            React.createElement('div', { className: "text-3xl w-12 h-12 flex items-center justify-center" },
-              renderIcon(strat.icon, strat.name, 'hint')),
-            React.createElement('div', null,
-              React.createElement('div', { className: "font-semibold" }, strat.name),
-              React.createElement('div', { className: "text-slate-400 text-xl font-['Symbola']" },
-                code.split('-').map(d => arrowText[d]).join(''))
-            )
-          )
-        )
+    },
+
+React.createElement('div', { className: "grid grid-cols-2 gap-4 text-sm" },
+  Object.entries(STRATAGEMS).map(([code, strat]) => {
+    const arrows = code.split('-').map(d => arrowText[d]);
+    let arrowDisplay;
+
+    // 1. LOGIC: If portrait and long, split into two lines manually
+    if (arrows.length > 7) {
+      const midpoint = Math.ceil(arrows.length / 2);
+      const firstHalf = arrows.slice(0, midpoint).join('');
+      const secondHalf = arrows.slice(midpoint).join('');
+      
+      // We join them with a space so the CSS knows where to wrap
+      arrowDisplay = `${firstHalf} ${secondHalf}`;
+    } else {
+      arrowDisplay = arrows.join('');
+    }
+
+    const isLong = arrows.length > 7;
+
+    return React.createElement('div', { key: code, className: "flex items-center gap-3 text-slate-300" },
+      React.createElement('div', { className: "text-3xl w-12 h-12 flex items-center justify-center" },
+        renderIcon(strat.icon, strat.name, 'hint')),
+      React.createElement('div', null,
+        React.createElement('div', { className: "font-semibold" }, strat.name),
+        React.createElement('div', { 
+          // 2. CSS: Use 'max-w-min' and 'text-center'
+          // max-w-min forces the div to be only as wide as the longest "word" (half the arrows)
+          className: `text-slate-400 text-xl font-['Symbola'] leading-tight ${
+            isLong ? "portrait:max-w-min portrait:text-center" : ""
+          }` 
+        }, arrowDisplay)
       )
+    );
+  })
+)   
+      
+    
+    
     ),
 
     React.createElement('button', {
